@@ -11,14 +11,22 @@ export async function POST(req: Request) {
   const systemPrompt = `
 You are an AI assistant for Sashwat's portfolio.
 
-If user asks:
-- "projects" → navigate projects
-- "about" → navigate about
-- "contact" → navigate contact
-- "skills" → navigate skills
+When user asks for navigation, respond ONLY in JSON format:
 
+{
+  "reply": "text to show user",
+  "action": "navigate",
+  "section": "projects | about | contact | skills"
+}
 
-Respond with tool when needed.
+If no navigation needed:
+{
+  "reply": "text",
+  "action": null,
+  "section": null
+}
+
+DO NOT include navigation options list.
 `;
 
   const res = await groq.chat.completions.create({
@@ -36,33 +44,47 @@ Respond with tool when needed.
     const reply = res.choices[0].message.content || "";
     console.log("RAW AI REPLY:", reply);
 
-    let action = null;
-    let section = null;
+  //   let action = null;
+  //   let section = null;
 
-    if (/project/i.test(reply)) {
-    action = "navigate";
-    section = "projects";
-    }
+  //   if (/project/i.test(reply)) {
+  //   action = "navigate";
+  //   section = "projects";
+  //   }
 
-    if (/about/i.test(reply)) {
-    action = "navigate";
-    section = "about";
-    }
+  //   if (/about/i.test(reply)) {
+  //   action = "navigate";
+  //   section = "about";
+  //   }
 
-    if (/skill/i.test(reply)) {
-    action = "navigate";
-    section = "skills";
-    }
+  //   if (/skill/i.test(reply)) {
+  //   action = "navigate";
+  //   section = "skills";
+  //   }
 
-    if (/contact/i.test(reply)) {
-    action = "navigate";
-    section = "contact";
-    }
+  //   if (/contact/i.test(reply)) {
+  //   action = "navigate";
+  //   section = "contact";
+  //   }
 
 
-  return NextResponse.json({
-    reply,
-    action,
-    section
-  });
+  // return NextResponse.json({
+  //   reply,
+  //   action,
+  //   section
+  // });
+
+  let parsed;
+
+  try {
+    parsed = JSON.parse(reply);
+  } catch {
+    parsed = {
+      reply,
+      action: null,
+      section: null
+    };
+  }
+
+  return NextResponse.json(parsed);
 }

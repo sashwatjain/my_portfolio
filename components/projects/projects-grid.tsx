@@ -28,14 +28,11 @@ export const ProjectsGrid = ({
     >
       {projects.map((project, index) => (
         <MotionEffect
-          key={`${project.id}-${animationKey}`}
+          key={project.id}
           fade
           inView
           zoom
-          className="w-full md:max-w-none"
           delay={0.1 + index * 0.1}
-          resetKey={animationKey}
-          slide={{ direction: "down" }}
         >
           <ProjectCard
             project={project}

@@ -57,13 +57,16 @@ export const ProjectModal = ({
                   {project.tech.map(({ name, icon }) => (
                     <Tooltip key={name} content={name} showArrow={true}>
                       <Avatar
-                        key={name}
                         showFallback
-                        classNames={{
-                          base: "bg-transparent",
-                          icon: "text-foreground dark:text-foreground-dark",
-                        }}
-                        icon={<Icon icon={icon} width={25} />}
+                        icon={
+                          <Icon
+                            icon={icon}
+                            width={25}
+                            onError={(e: any) => {
+                              e.target.setAttribute("icon", "mdi:code-tags");
+                            }}
+                          />
+                        }
                       />
                     </Tooltip>
                   ))}

@@ -4,7 +4,7 @@ export interface Project {
   readonly category: string;
   readonly description: string;
   readonly details: string;
-  readonly image: string;
+  readonly image: string ;
   readonly github?: string;
   readonly live?: string;
   readonly gallery: readonly string[];

@@ -41,7 +41,7 @@ const MotionEffect = React.forwardRef<HTMLDivElement, MotionEffectProps>(
     {
       children,
       className,
-      resetKey,
+      // resetKey,
       transition = { type: "spring", stiffness: 200, damping: 20 },
       delay = 0,
       inView = false,
@@ -99,7 +99,6 @@ const MotionEffect = React.forwardRef<HTMLDivElement, MotionEffectProps>(
     }
 
     return (
-      <AnimatePresence key={resetKey}>
         <motion.div
           ref={localRef}
           animate={isInView ? "visible" : "hidden"}
@@ -119,7 +118,6 @@ const MotionEffect = React.forwardRef<HTMLDivElement, MotionEffectProps>(
         >
           {children}
         </motion.div>
-      </AnimatePresence>
     );
   },
 );

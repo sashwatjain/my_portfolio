@@ -1,9 +1,9 @@
+"use client";
 import { memo } from "react";
 import { Card, CardBody, CardFooter, Button, Image } from "@heroui/react";
 import { Icon } from "@iconify/react";
 
 import { ProjectCardProps } from "@/components/projects/types";
-
 export const ProjectCard = memo(function ProjectCard({
   project,
   onViewDetails,
@@ -25,14 +25,14 @@ export const ProjectCard = memo(function ProjectCard({
           <Image
             isZoomed
             removeWrapper
-            alt={project.title}
+            alt={project.title || "Untitled Project"}
             className="absolute inset-0 w-full h-full object-cover"
             classNames={{
               img: "w-full h-full object-cover",
               zoomedWrapper: "w-full h-full",
             }}
             loading="lazy"
-            src={project.image}
+            src={project.image || "/fallback.png"}
           />
           <CardFooter
             className="

@@ -1,3 +1,4 @@
+"use client";
 import { memo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Skeleton } from "@heroui/react";
