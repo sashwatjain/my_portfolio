@@ -1,0 +1,11 @@
+{
+  "name": "Sashwat Jain",
+  "about": "Software engineer + filmmaker building creative tech products.",
+  "skills": ["Python", "AI", "Next.js", "Filmmaking", "Automation"],
+  "sections": {
+    "projects": "projects-section",
+    "about": "about-section",
+    "skills": "skills-section",
+    "contact": "contact-section"
+  }
+}
