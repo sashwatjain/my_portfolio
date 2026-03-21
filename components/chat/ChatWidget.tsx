@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import ReactMarkdown from "react-markdown";
 
 export const ChatWidget = () => {
   const [open, setOpen] = useState(false);
@@ -128,7 +129,15 @@ export const ChatWidget = () => {
                     : "mr-auto bg-white/10 text-white backdrop-blur-md border border-white/10"
                 }`}
                 >
-                {msg.text}
+                <ReactMarkdown
+                  components={{
+                    p: ({ children }) => <p className="mb-2">{children}</p>,
+                    strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                    li: ({ children }) => <li className="ml-4 list-disc">{children}</li>,
+                  }}
+                >
+                  {msg.text}
+                </ReactMarkdown>
               </div>
             ))}
             {loading && (
