@@ -37,9 +37,19 @@ export const ProjectModal = ({
         </ModalHeader>
         <ScrollShadow hideScrollBar size={60}>
           <ModalBody>
-            {project.gallery && project.gallery.length > 0 && (
-              <ImageGallery images={project.gallery} />
+            {project.image && (
+              <div className="mb-4 rounded-lg overflow-hidden border border-white/10 aspect-video">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
             )}
+
+            {/* {project.gallery && project.gallery.length > 0 && (
+              <ImageGallery images={project.gallery} />
+            )} */}
 
             <p className="text-sm text-primary-500 mb-3 font-medium uppercase tracking-wide">
               {project.category}

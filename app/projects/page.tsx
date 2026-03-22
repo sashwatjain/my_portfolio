@@ -64,9 +64,8 @@ const ProjectsPage = async () => {
 
     // 🎬 IMAGE (fallback chain)
     const image =
-      p.thumbnail ||
-      `https://raw.githubusercontent.com/${p.full_name}/main/preview.gif` ||
-      "/default-project.png";
+    p.thumbnail ||
+    `https://raw.githubusercontent.com/${p.full_name}/main/preview.gif` ;
 
     return {
       id: p.id ?? `project-${index}`,
@@ -100,8 +99,8 @@ const ProjectsPage = async () => {
   });
 
   const categories = ["All", ...new Set(allProjects.map((p) => p.category))];
-  // console.log("RAW GITHUB:", githubProjects);
-  console.log("MAPPED PROJECTS:", allProjects);
+  console.log("RAW GITHUB:", githubProjects);
+  // console.log("MAPPED PROJECTS:", allProjects);
 
   return (
     <ProjectsClient allProjects={allProjects} categories={categories} />

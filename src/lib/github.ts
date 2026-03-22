@@ -19,7 +19,7 @@ export async function getGithubProjects(username: string) {
     repos
       .filter((repo: any) => !repo.fork)
       .map(async (repo: any) => {
-        const base = `https://raw.githubusercontent.com/${username}/${repo.name}/main/project_info`;
+        const base = `https://raw.githubusercontent.com/${username}/${repo.name}/main/`;
 
         // ✅ intro override
         let intro = repo.description || "";
@@ -43,7 +43,7 @@ export async function getGithubProjects(username: string) {
           ...repo, // 🔥 KEEP EVERYTHING
           customIntro: intro,
           customTags: tags,
-          thumbnail: `${base}/preview.gif`,
+          thumbnail: `${base}preview.gif`,
         };
       })
   );

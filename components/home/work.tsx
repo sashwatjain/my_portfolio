@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -57,6 +57,24 @@ export const WorkSection = () => {
               />
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <Link href="/projects">
+            <button className="
+              px-6 py-3 rounded-full
+              bg-gradient-to-r from-purple-600 to-blue-500
+              text-white text-sm font-medium
+              shadow-lg shadow-purple-500/20
+              hover:shadow-purple-500/40
+              hover:scale-105
+              transition-all duration-300
+              border border-white/10
+              backdrop-blur-md
+            ">
+              View All Projects →
+            </button>
+          </Link>
         </div>
 
         <ProjectModal

@@ -68,7 +68,7 @@ export const HeroSection = ({
               download
               aria-label="Download CV in PDF format"
               className="w-full sm:w-auto"
-              href="/new CV.pdf"
+              href="/sashwat_jain_resume.pdf"
             >
               <Button
                 fullWidth
