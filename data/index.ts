@@ -105,7 +105,7 @@ export const DATA = {
       name: "Sashwat Jain",
       title: "AI engineer",
       image:
-        "https://res.cloudinary.com/devq06psf/image/upload/v1750626923/chic_soba_bkhd8o.png",
+        "https://raw.githubusercontent.com/sashwatjain/my_portfolio/main/profile_image.jpg",
       description: [
       "I'm an AI engineer and creative technologist focused on building intelligent systems that combine automation, design, and real-world impact. I enjoy solving complex problems and turning ideas into scalable, practical solutions.",
       
