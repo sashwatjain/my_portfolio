@@ -18,6 +18,7 @@ export const MediumSection = () => {
     prevTestimonial,
   } = useTestimonials(posts);
 
+  
   if (!posts.length) return null;
 
   return (
@@ -28,7 +29,7 @@ export const MediumSection = () => {
 
       <div className="flex items-center justify-center gap-6">
         <button onClick={prevTestimonial}>←</button>
-
+        
         <MediumCard post={posts[currentIndex]} />
 
         <button onClick={nextTestimonial}>→</button>

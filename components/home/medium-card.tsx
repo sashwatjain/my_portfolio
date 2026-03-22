@@ -1,7 +1,10 @@
 import { Card, CardBody, Image, Avatar } from "@heroui/react";
 
 export const MediumCard = ({ post }: any) => {
+  console.log("POST DATA:", post); // 👈 ADD THIS
+
   return (
+    
     <a href={post.link} target="_blank" rel="noopener noreferrer">
       <Card className="border-none h-[380px] md:h-[320px] bg-white/90 dark:bg-black/40 hover:scale-[1.02] transition duration-300">
         
@@ -36,7 +39,7 @@ export const MediumCard = ({ post }: any) => {
               
               <Avatar
                 size="sm"
-                src="https://raw.githubusercontent.com/sashwatjain/my_portfolio/main/profile_image.jpg"
+                src="https://cdn-images-1.medium.com/v2/resize:fill:150:150/0*zJufwGp4LkUfpAYl"
                 className="ring-2 ring-primary-400 shadow-md"
               />
 
