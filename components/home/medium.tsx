@@ -49,6 +49,7 @@ export const MediumSection = () => {
         <a
           href="https://medium.com/@sashwatkjain"
           target="_blank"
+          rel="noopener noreferrer"
           className="text-primary-500 underline"
         >
           <button className="
