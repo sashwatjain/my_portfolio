@@ -10,6 +10,7 @@ import { PageWrapper } from "@/components/page-wrapper";
 import { Providers } from "@/app/providers";
 import { StarsBackground } from "@/components/backgrounds/stars";
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import { ChatWidget } from "@/components/chat/ChatWidget";
 
@@ -85,6 +86,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <StarsBackground>{content}</StarsBackground>
         </Providers>
+        <SpeedInsights />
         <Analytics />
       </body>
     </html>
