@@ -9,6 +9,7 @@ import { Navigation } from "@/components/navbar";
 import { PageWrapper } from "@/components/page-wrapper";
 import { Providers } from "@/app/providers";
 import { StarsBackground } from "@/components/backgrounds/stars";
+import { Analytics } from "@vercel/analytics/next"
 
 import { ChatWidget } from "@/components/chat/ChatWidget";
 
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <StarsBackground>{content}</StarsBackground>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
