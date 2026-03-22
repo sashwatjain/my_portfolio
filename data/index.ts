@@ -30,7 +30,7 @@ export const DATA = {
         color: "success",
       },
       {
-        name: "Creative Tech & Filmmaking",
+        name: "Branding and Creatives",
         level: 80,
         icon: "lucide:video",
         color: "warning",
@@ -116,11 +116,11 @@ export const DATA = {
     },
     education: [
       {
-        title: "Viberant Academy",
-        date: "2016 - 2018",
-        icon: "mdi:palette",
+        title: "National Institute of Technology, Nagpur",
+        date: "2019 - 2023",
+        icon: "mdi:school-outline",
         description:
-          "Focused on foundational engineering skills Mathamatics, Physics, Chemistry",
+          "Completed a Bachelor's degree in Mechanical Engineering",
       },
       {
         title: "DAVV, Institute of Engineering and Technology, Indore",
@@ -130,85 +130,108 @@ export const DATA = {
           "Enrolled for the bachelor's degree in Computer Science and Engineering, this was my entrypoint into the world of software development and design.",
       },
       {
-        title: "National Institute of Technology, Nagpur",
-        date: "2019 - 2023",
-        icon: "mdi:school-outline",
+        title: "Viberant Academy",
+        date: "2016 - 2018",
+        icon: "mdi:palette",
         description:
-          "Completed a Bachelor's degree in Mechanical Engineering",
+          "Focused on foundational engineering skills Mathamatics, Physics, Chemistry",
       },
+      
+      
     ],
     experience: [
       {
-        title: "Creative Director",
-        date: "2018 - Present",
+        title: "Specialist Software Engineer",
+        date: "Mar 2025 - Present",
         icon: "mdi:briefcase",
         description:
-          "Lead creative and development teams to build digital experiences that combine innovation with user empathy. Oversee branding, UI/UX strategy, and development pipelines for tech startups and clients.",
+          "Working on advanced AI/ML systems focused on LLM applications and GenAI workflows. Designed AI guardrails for secure LLM usage, built document intelligence pipelines using Mistral and LLaMA, and developed scalable RAG systems. Integrated AI services with FastAPI microservices and scaled solutions to process 150K+ documents monthly.",
       },
       {
-        title: "Senior UX Engineer",
-        date: "2015 - 2018",
+        title: "Associate Software Engineer",
+        date: "Jul 2023 - Mar 2025",
         icon: "mdi:monitor-dashboard",
         description:
-          "Designed and implemented high-fidelity web interfaces using React, Figma, and Tailwind. Collaborated cross-functionally with developers and designers to craft intuitive user flows and interactions.",
+          "Built end-to-end OCR and image-to-text pipelines using Python, Tesseract, and FastAPI. Developed modular AI pipelines and production-grade REST APIs. Worked on LLM-based solutions like receipt data extraction and chatbot systems using LangChain and OpenAI.",
       },
       {
-        title: "Front-End Developer & Designer",
-        date: "2012 - 2015",
-        icon: "mdi:code-tags",
+        title: "Physics Educator (JEE Foundation)",
+        date: "2022",
+        icon: "mdi:school",
         description:
-          "Developed responsive websites and applications with a focus on accessibility, visual aesthetics, and performance. Delivered pixel-perfect interfaces from wireframes to production code.",
+          "Taught JEE foundation-level physics concepts, focusing on building strong conceptual understanding and problem-solving skills. Simplified complex topics for students and developed structured learning approaches to improve clarity and retention.",
       },
     ],
+
     technologies: {
+      aiMl: {
+        description:
+          "I build intelligent systems using LLMs, RAG pipelines, and scalable AI architectures.",
+        tools: [
+          { name: "OpenAI", icon: "simple-icons:openai" },
+          { name: "LLaMA", icon: "simple-icons:meta" },
+          { name: "Mistral", icon: "simple-icons:mistral" },
+          { name: "LangChain", icon: "simple-icons:chainlink" },
+          { name: "FAISS", icon: "simple-icons:facebook" },
+          { name: "Prompt Engineering", icon: "mdi:brain" },
+        ],
+      },
+
+      backend: {
+        description:
+          "I design scalable backend systems and APIs for AI-driven applications.",
+        tools: [
+          { name: "Python", icon: "logos:python" },
+          { name: "FastAPI", icon: "simple-icons:fastapi" },
+          { name: "Node.js", icon: "logos:nodejs-icon" },
+          { name: "REST APIs", icon: "mdi:api" },
+          { name: "Microservices", icon: "mdi:cube-outline" },
+        ],
+      },
+
+      cloud: {
+        description:
+          "I deploy and scale AI systems using cloud-native tools and MLOps practices.",
+        tools: [
+          { name: "Docker", icon: "logos:docker-icon" },
+          { name: "CI/CD", icon: "mdi:infinity" },
+          { name: "Model Deployment", icon: "mdi:cloud-upload" },
+          { name: "Monitoring", icon: "mdi:monitor-dashboard" },
+        ],
+      },
+
       frontend: {
         description:
-          "I craft dynamic, responsive UIs using modern JavaScript frameworks and CSS tools.",
+          "I build clean interfaces and dashboards for interacting with AI systems.",
         tools: [
           { name: "React", icon: "logos:react" },
           { name: "Next.js", icon: "skill-icons:nextjs-dark" },
-          { name: "Tailwind", icon: "logos:tailwindcss-icon" },
-          { name: "TypeScript", icon: "logos:typescript-icon" },
+          { name: "JavaScript", icon: "logos:javascript" },
           { name: "HTML5", icon: "logos:html-5" },
           { name: "CSS3", icon: "logos:css-3" },
         ],
       },
-      backend: {
+
+      filmmaking: {
         description:
-          "I build fast APIs and scalable backends using Node.js, Bun, and Python.",
+          "I create cinematic videos for brands and personal storytelling, focusing on visuals, emotion, and storytelling.",
         tools: [
-          { name: "Node.js", icon: "logos:nodejs-icon" },
-          { name: "Bun", icon: "logos:bun" },
-          { name: "Python", icon: "logos:python" },
-          { name: "MySQL", icon: "logos:mysql-icon" },
-          { name: "PostgresSQL", icon: "logos:postgresql" },
-          { name: "OpenAI", icon: "simple-icons:openai" },
-        ],
-      },
-      uiUx: {
-        description:
-          "I design smooth, user-centered interfaces and high-fidelity prototypes.",
-        tools: [
-          { name: "Figma", icon: "logos:figma" },
-          { name: "Framer", icon: "simple-icons:framer", color: "#0055FF" },
-          { name: "Notion", icon: "logos:notion-icon" },
-        ],
-      },
-      graphicDesign: {
-        description:
-          "My graphic work includes logos, branding, and posters using Adobe Suite.",
-        tools: [
-          { name: "Photoshop", icon: "logos:adobe-photoshop" },
-          { name: "Illustrator", icon: "logos:adobe-illustrator" },
-        ],
-      },
-      motionDesign: {
-        description:
-          "I animate UI flows and cinematic intros using After Effects and Blender.",
-        tools: [
-          { name: "After Effects", icon: "logos:adobe-after-effects" },
           { name: "Premiere Pro", icon: "logos:adobe-premiere" },
-          { name: "Blender", icon: "logos:blender" },
+          { name: "After Effects", icon: "logos:adobe-after-effects" },
+          { name: "DaVinci Resolve", icon: "simple-icons:blackmagicdesign" },
+          { name: "Cinematography", icon: "mdi:camera" },
+          { name: "Color Grading", icon: "mdi:palette" },
+          { name: "Storytelling", icon: "mdi:movie-open" },
+        ],
+      },
+
+      other: {
+        description:
+          "Additional tools and libraries I use across projects.",
+        tools: [
+          { name: "PyTorch", icon: "logos:pytorch" },
+          { name: "scikit-learn", icon: "simple-icons:scikitlearn" },
+          { name: "SQL", icon: "mdi:database" },
         ],
       },
     },
@@ -464,8 +487,8 @@ export const DATA = {
       "Have a project in mind? Get in touch and let's create something amazing.",
     location: {
       mapSrc:
-        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.017947223557!2d-122.41941508468191!3d37.774929779759245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809cbb69f3ef%3A0x4c80b42c33b6a77d!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1715701234567!5m2!1sen!2sus",
-      address: "San Francisco, CA",
+        "https://www.google.com/maps?q=Pune,India&output=embed",
+      address: "Pune, India",
     },
   },
   morphingTexts: {

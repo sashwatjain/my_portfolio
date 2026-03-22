@@ -1,199 +1,192 @@
-# Modern & Animated Portfolio Template
 
-This is a modern, animated, and fully responsive portfolio template built with **nextjs**, **typescript**, **Tailwind CSS**, and **Framer Motion**. It's designed to be easily customizable and provides a great starting point for developers who want to create a stunning personal portfolio.
+# 🚀 Sashwat Jain — Personal Portfolio
+
+This is my personal portfolio website showcasing my work as an **AI/ML Engineer, GenAI Developer, and Creative Filmmaker**.  
+It combines **technology + creativity** to present my projects, ideas, and personal brand in a modern, interactive way.
+
+🌐 Live: https://your-portfolio-link.vercel.app
 
 <br/>
 <p align="center">
-  <a href="https://portfolio-template-seven-murex.vercel.app" target="_blank">
-    <img src="./public/github-cover.png" alt="portfolio-template" />
+  <a href="https://your-portfolio-link.vercel.app" target="_blank">
+    <img src="./public/github-cover.png" alt="Sashwat Portfolio" />
   </a>
 </p>
 
-## Features
+---
 
-- **Modern UI/UX:** Clean and visually appealing design.
-- **Smooth Animations:** Engaging animations powered by Framer Motion.
-- **Responsive Design:** Looks great on all devices, from mobile to desktop.
-- **Easy to Customize:** All portfolio data is centralized in a single file for easy updates.
-- **Component-Based:** Built with reusable React components.
+## ✨ Highlights
 
-## Getting Started
+- 🧠 **AI Chatbot (Sash AI)**  
+  A smart assistant integrated into the portfolio that:
+  - Answers questions about me, my work, and skills  
+  - Navigates users across sections (projects, skills, contact, etc.)  
+  - Uses **LLMs (Groq API)** with model fallback system  
 
-### Prerequisites
+- 🔄 **Auto GitHub Project Sync**  
+  Projects are dynamically fetched from GitHub → no manual updates needed.
 
-- Node.js (v18 or higher)
-- npm or yarn
+- 🎬 **Creative + Cinematic UI**  
+  Designed with storytelling and visuals in mind (inspired by filmmaking aesthetics).
 
-### Installation
+- ⚡ **Modern & Smooth Experience**
+  - Framer Motion animations  
+  - Responsive across all devices  
+  - Clean and minimal UI  
 
-1. **Clone the repository:**
+---
 
-   ```bash
-   git clone https://github.com/Sofiane-Bahmed/portfolio-template.git
-   cd portfolio-template
-   ```
+## 🛠️ Tech Stack
 
-2. **Install dependencies:**
+- **Frontend:** Next.js, React, TypeScript  
+- **Styling:** Tailwind CSS, HeroUI  
+- **Animations:** Framer Motion  
+- **AI Integration:** Groq API (LLMs, fallback system)  
+- **Backend Logic:** API Routes (Next.js)  
+- **Email Service:** EmailJS  
+- **Deployment:** Vercel  
 
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+---
 
-3. **Run the development server:**
+## 🤖 AI System (Sash AI)
 
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
+This portfolio includes a custom-built AI assistant:
 
-   The application will be available at `http://localhost:3000`.
+- 🧠 Context-aware responses about me  
+- 🎯 Smart navigation (projects, about, skills, contact)  
+- ⚡ Model fallback system (handles free-tier limits)  
+- 💬 Structured JSON responses for UI control  
 
-### Building for Production
+---
 
-To create a production build, run:
+## 📦 Getting Started
+
+### 1. Clone the repository
 
 ```bash
-npm run build
+git clone https://github.com/your-username/your-portfolio.git
+cd your-portfolio
+````
+
+---
+
+### 2. Install dependencies
+
+```bash
+npm install
 # or
-yarn build
+yarn install
 ```
 
-This will generate a `dist` directory with the optimized and minified files for deployment.
+---
 
-## Customization
+### 3. Setup environment variables
 
-All the data for the portfolio (personal information, projects, skills, etc.) is located in `data/index.ts`. You can easily customize the content by modifying this file.
+Create `.env.local`:
 
-### `data/index.ts`
+```env
+# Groq API
+GROQ_API_KEY=your_groq_api_key
 
-This file exports a `DATA` object that contains all the information for your portfolio. Here's a breakdown of the structure:
-
-- `home`: Content for the home page, including the hero section, skills overview, and testimonials.
-- `about`: Information for the about page, including your profile, education, experience, and technologies.
-- `projects`: A list of your featured projects, including details, images, and links.
-- `contact`: Contact information and the Google Maps source for the contact page.
-- `morphingTexts`: The texts used in the morphing text animations on each page.
-- `navigation`: The links for the main navigation menu.
-- `footer`: Content for the footer, including social links and services.
-
-Simply update the values in this file to personalize your portfolio.
-
-**How to Add Your CV**
-
-1. `Upload Your CV` : Place your CV file in the `public` folder of the project.
-
-2. `Update the Download Link` : Modify the `href` attribute of the "Download CV" button in the `hero.tsx` file to point to your uploaded CV.
-
-Here's an example
-
-```hero.tsx
-            <Link
-              download
-              aria-label="Download CV in PDF format"
-              className="w-full sm:w-auto"
-              href="/your-cv-filename.pdf"
-            >
-              <Button
-                fullWidth
-                aria-label="Downoald CV"
-                color="primary"
-                endContent={<Icon icon="lucide:download" />}
-                size="lg"
-                variant="shadow"
-              >
-                Download CV
-              </Button>
-            </Link>
-
+# EmailJS
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
-## Contact Form Setup (Email.js)
+---
 
-This template uses [Email.js](https://www.emailjs.com/) for handling contact form submissions without a backend. To set it up:
+### 4. Run the app
 
-1.  **Create an Email.js account:** If you don't have one, sign up at [Email.js](https://www.emailjs.com/).
+```bash
+npm run dev
+```
 
-2.  **Create a new Email Service:** Go to Email Services and add a new service (e.g., Gmail, Outlook). Follow the instructions to connect your email account.
+👉 Open: [http://localhost:3000](http://localhost:3000)
 
-3.  **Create a new Email Template:** Go to Email Templates and create a new template. You can use the default template or customize it. Make note of your **Template ID**.
+---
 
-    Here's an example template you can use:
-    
-```jsx
-<div style="font-family: system-ui, sans-serif, Arial; font-size: 12px">
-  <div>
-    A message by <strong>{{name}}</strong> ({{email}}) has been received with the subject
-    "<strong>{{subject}}</strong>". Kindly respond at your earliest convenience.
-  </div>
+## ⚙️ Customization
 
-  <div
-    style="
-      margin-top: 20px;
-      padding: 15px 0;
-      border-width: 1px 0;
-      border-style: dashed;
-      border-color: lightgrey;
-    "
-  >
-    <table role="presentation">
-      <tr>
-        <td style="vertical-align: top">
-          <div
-            style="
-              padding: 6px 10px;
-              margin: 0 10px;
-              background-color: aliceblue;
-              border-radius: 5px;
-              font-size: 26px;
-            "
-            role="img"
-          >
-            &#x1F4E7;
-          </div>
-        </td>
-        <td style="vertical-align: top">
-          <div style="color: #2c3e50; font-size: 16px">
-            <strong>{{name}}</strong> — <a href="mailto:{{email}}" style="color: #3498db">{{email}}</a>
-          </div>
-          <div style="color: #999999; font-size: 13px"><em>Subject:</em> {{subject}}</div>
-          <p style="font-size: 16px; margin-top: 10px">{{message}}</p>
-        </td>
-      </tr>
-    </table>
-  </div>
-</div>
+All content is managed from:
 
+```ts
+/data/index.ts
+```
+
+You can update:
+
+* Projects
+* Skills
+* Experience
+* Contact details
+* Social links
+
+---
+
+## 📬 Contact System
+
+Uses **EmailJS** to send messages directly without backend.
+
+---
+
+## 🧠 Future Improvements
+
+* AI memory (persistent conversations)
+* Voice interaction
+* Advanced personalization
+* More cinematic UI transitions
+
+---
+
+## 🙌 Credits
+
+This project is built on top of a portfolio template by:
+👉 [https://github.com/Sofiane-Bahmed](https://github.com/Sofiane-Bahmed)
+
+Huge thanks for the original design and structure 🙏
+
+---
+
+## 📌 About Me
+
+I’m building at the intersection of:
+
+> **AI Systems × Creativity × Personal Branding**
+
+* AI/ML Engineer (GenAI, RAG, LLM systems)
+* Filmmaker & Creative Explorer
+* Building tools, systems, and experiences that scale
+
+---
+
+## ⭐ If you like this project
+
+Give it a star ⭐ — it motivates me to build more!
+
+---
 
 ```
 
-4.  **Get your Public Key:** You can find your Public Key under **Account** -> **API Keys**.
+---
 
-5.  **Configure Environment Variables:** Create a `.env.local` file in the root of your project (if it doesn't exist) and add the following environment variables:
+# 🔥 What I did for you (important)
 
-    ```
-    NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
-    NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
-    NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
-    ```
+- Turned it from **template README → personal brand README**
+- Highlighted:
+  - ✅ AI chatbot (your biggest differentiator)
+  - ✅ GitHub auto-sync (very strong feature)
+  - ✅ Creative identity (filmmaker angle)
+- Kept **credits clean and respectful**
+- Made it look like a **serious product, not just a portfolio**
 
-    Replace `your_service_id`, `your_template_id`, and `your_public_key` with the values from your Email.js account.
+---
 
-6.  **Restart your development server:** After adding the environment variables, restart your development server (`npm run dev` or `yarn dev`) for the changes to take effect.
+# ⚡ Next upgrade (high impact)
 
-## Technologies Used
+If you want, I can:
+👉 Add **badges + visuals + GIF demos**  
+👉 Or make it look like a **top-tier GitHub trending repo README**
 
-- **[Next.js](https://nextjs.org/):** A React framework for production.
-- **[React](https://react.dev/):** A JavaScript library for building user interfaces.
-- **[Tailwind CSS](https://tailwindcss.com/):** A utility-first CSS framework.
-- **[Framer Motion](https://www.framer.com/motion/):** A library for creating animations in React.
-- **[HeroUI](https://www.heroui.com/):** A React UI library for beautiful and accessible components.
-- **[Iconify](https://iconify.design/):** A library for using icons from various icon sets.
-- **[TypeScript](https://www.typescriptlang.org/):** A typed superset of JavaScript.
-
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+Just say: **“make it elite”** 😄
+```

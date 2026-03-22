@@ -63,7 +63,7 @@ export const ContactMap: React.FC<ContactMapProps> = ({
             key="map"
             allowFullScreen
             animate={{ opacity: isLoaded ? 1 : 0 }}
-            className="w-full h-full border-none filter grayscale invert"
+            className="w-full h-full border-none brightness-95 contrast-110"
             initial={{ opacity: 0 }}
             loading="lazy"
             src={src}

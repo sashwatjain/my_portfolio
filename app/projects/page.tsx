@@ -99,7 +99,7 @@ const ProjectsPage = async () => {
   });
 
   const categories = ["All", ...new Set(allProjects.map((p) => p.category))];
-  console.log("RAW GITHUB:", githubProjects);
+  // console.log("RAW GITHUB:", githubProjects);
   // console.log("MAPPED PROJECTS:", allProjects);
 
   return (

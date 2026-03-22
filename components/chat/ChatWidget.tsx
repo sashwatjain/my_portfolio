@@ -48,7 +48,9 @@ export const ChatWidget = () => {
           projects: "projects-section",
           about: "about-section",
           skills: "skills-section",
-          contact: "contact-section"
+          contact: "contact-section",
+          home: "home-section",
+          articles: "articles-section"
         };
 
     if (data.action === "navigate") {
@@ -56,7 +58,9 @@ export const ChatWidget = () => {
             projects: "/projects",
             about: "/about",
             contact: "/contact",
-            skills: "/" // 👈 important
+            skills: "/", // 👈 important
+            home: "/",
+            articles: "/"
         };
 
         const route = routeMap[data.section];
@@ -66,9 +70,12 @@ export const ChatWidget = () => {
         // 🔥 If skills → go home THEN scroll
         if (data.section === "skills") {
             router.push("/?scroll=skills");
+        } else if (data.section === "articles") { 
+            router.push("/?scroll=articles");
         } else {
             router.push(route);
         }
+        
         }
       }
 
@@ -91,7 +98,7 @@ export const ChatWidget = () => {
                     backdrop-blur-md border border-white/10
                     hover:scale-105 transition-all duration-300"
         >
-        ✨ Ask AI
+        ✨ Ask Sash AI
         </button>
       )}
 
