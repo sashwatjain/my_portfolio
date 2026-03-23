@@ -42,7 +42,7 @@ export const DATA = {
   about: {
     profile: {
       name: "Sashwat Jain",
-      title: "AI engineer",
+      title: " AI engineer",
       image:
         "https://raw.githubusercontent.com/sashwatjain/my_portfolio/main/profile_image.jpg",
       description: [
