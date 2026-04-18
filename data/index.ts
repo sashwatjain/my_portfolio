@@ -2,9 +2,9 @@ export const DATA = {
   home: {
     hero: {
       name: "Sashwat Jain",
-      title: "AI engineer & Software Developer",
+      title: "AI & SD Engineer",
       subtitle:
-        "I build fast, accessible and helpfull AI solutions.",
+        "empowering, securing innovation, and weaving creativity into everything I do.",
     },
     skills: {
       sectionTitle: "Skills & Expertise",
@@ -178,7 +178,7 @@ export const DATA = {
   projects: {
     sectionTitle: "Featured Projects",
     sectionDescription:
-      "A selection of my recent projects showcasing UI/UX design and development expertise",
+      "A selection of my recent projects showcasing AI and development skills",
     work: [
       {
         id: 1,
