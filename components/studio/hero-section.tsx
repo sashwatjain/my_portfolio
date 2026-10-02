@@ -120,7 +120,7 @@ export const HeroSection = () => {
             priority
             alt={`${SITE.name} — portrait`}
             caption="that's me :)"
-            className="w-full shrink-0 self-center lg:w-auto"
+            className="flex w-full shrink-0 flex-col items-center self-center lg:w-auto"
             size={272}
             src={SITE.profile.studioImage}
             tone="studio"
