@@ -24,7 +24,10 @@ export const SiteShell = ({
   children: React.ReactNode;
   theme: PageKey;
 }) => (
-  <div className="flex min-h-screen flex-col bg-background" data-theme={PAGES[theme].theme}>
+  <div
+    className="flex min-h-screen flex-col overflow-x-clip bg-background"
+    data-theme={PAGES[theme].theme}
+  >
     {/* Keeps @heroui/use-theme (and therefore HeroUI's own dark: handling) in
         sync with the wrapper above. No visual effect — the wrapper already won. */}
     <PageTheme theme={theme} />
