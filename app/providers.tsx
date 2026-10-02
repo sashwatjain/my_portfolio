@@ -1,22 +1,12 @@
 "use client";
 
-import type { ThemeProviderProps } from "next-themes";
-
 import * as React from "react";
 import { HeroUIProvider } from "@heroui/system";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 import { ToastProvider } from "@heroui/react";
-
-const NextThemesProvider = dynamic(
-  () =>
-    import("next-themes").then(({ ThemeProvider }) => ThemeProvider),
-  { ssr: false },
-);
 
 export interface ProvidersProps {
   children: React.ReactNode;
-  themeProps?: ThemeProviderProps;
 }
 
 declare module "@react-types/shared" {
@@ -27,13 +17,23 @@ declare module "@react-types/shared" {
   }
 }
 
-export function Providers({ children, themeProps }: ProvidersProps) {
+/**
+ * Note there is no theme provider here on purpose.
+ *
+ * HeroUI resolves themes purely from `[data-theme="..."]` CSS selectors, so the
+ * only thing that has to set that attribute is the route itself — which
+ * SiteShell already does on the server. See components/layout/page-theme.tsx
+ * for why next-themes was removed: its `useTheme` reads localStorage inside a
+ * `useState` initializer with no SSR guard, which throws during prerender and
+ * was silently reducing both pages to client-side rendering.
+ */
+export function Providers({ children }: ProvidersProps) {
   const router = useRouter();
 
   return (
     <HeroUIProvider navigate={router.push}>
       <ToastProvider />
-      <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+      {children}
     </HeroUIProvider>
   );
 }

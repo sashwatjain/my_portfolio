@@ -1,18 +1,13 @@
-import "@/app/globals.css"
+import "@/app/globals.css";
 import { clsx } from "clsx";
 import { type Metadata } from "next";
 import { Inter } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
-import { DATA } from "@/data";
-import { Footer } from "@/components/footer";
-import { Navigation } from "@/components/navbar";
-import { PageWrapper } from "@/components/page-wrapper";
 import { Providers } from "@/app/providers";
-import { StarsBackground } from "@/components/backgrounds/stars";
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-
-import { ChatWidget } from "@/components/chat/ChatWidget";
+import { PageTransitionProvider } from "@/components/layout/page-transition";
+import { SITE } from "@/data/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,17 +17,17 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("http://localhost:3000"),
   title: {
-    default: DATA.home.hero.name,
-    template: `%s | ${DATA.home.hero.name}`,
+    default: `${SITE.name} — ${SITE.role}`,
+    template: `%s | ${SITE.name}`,
   },
-  description: DATA.home.hero.subtitle,
+  description: SITE.tagline,
   openGraph: {
     title: {
-      default: DATA.home.hero.name,
-      template: `%s | ${DATA.home.hero.name}`,
+      default: `${SITE.name} — ${SITE.role}`,
+      template: `%s | ${SITE.name}`,
     },
-    description: DATA.home.hero.subtitle,
-    siteName: DATA.home.hero.name,
+    description: SITE.tagline,
+    siteName: SITE.name,
     locale: "en_US",
     type: "website",
   },
@@ -49,8 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: {
-      default: DATA.home.hero.name,
-      template: `%s | ${DATA.home.hero.name}`,
+      default: `${SITE.name} — ${SITE.role}`,
+      template: `%s | ${SITE.name}`,
     },
     card: "summary_large_image",
   },
@@ -60,36 +55,28 @@ type RootLayoutProps = {
   children: React.ReactNode;
 };
 
+/**
+ * Deliberately thin. The shell lives in the per-route-group layouts
+ * (app/(career)/layout.tsx and app/(studio)/layout.tsx) because only they know
+ * which page is being rendered — which is what makes the theme correct in the
+ * server HTML instead of after hydration.
+ */
 export default function RootLayout({ children }: RootLayoutProps) {
-  const content = (
-    <main className="bg-background min-h-screen bg-gradient-to-b from-background to-content2">
-      <Navigation />
-      <PageWrapper>{children}</PageWrapper>
-      <Footer />
-      <ChatWidget />
-    </main>
-  );
-
   return (
     <html suppressHydrationWarning lang="en">
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-background font-sans text-ink-strong antialiased",
           inter.variable,
         )}
       >
-        <Providers
-          themeProps={{
-            attribute: "class",
-            defaultTheme: "dark",
-          }}
-        >
-          <StarsBackground>{content}</StarsBackground>
-        </Providers>
+        <PageTransitionProvider>
+          <Providers>{children}</Providers>
+        </PageTransitionProvider>
+
         <SpeedInsights />
         <Analytics />
       </body>
     </html>
   );
 }
-

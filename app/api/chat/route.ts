@@ -1,131 +1,209 @@
 import { NextResponse } from "next/server";
 import Groq from "groq-sdk";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY
-});
+import { PAGES, SECTION_IDS, SITE } from "@/data/site";
 
-export async function POST(req: Request) {
-  const { messages } = await req.json();
+export const runtime = "nodejs";
 
-  const systemPrompt = `
-You are an AI assistant for Sashwat's portfolio names "Sash AI".
-You can reply directly and also navigate the user to different sections of the portfolio when asked about projects, about, skills, home , articles or contact.
-if some non relevent question is asked you can reply without navigation try to keep context about sashwat. Always keep the user engaged and provide helpful information.
-Reply section of json shall be max one paragraph. do not reply long long texts.
-about page contains information about sashwat's education, experience and skills.
-projects page contains all projects which are automatically updated from github repos.
-contact page contains contact form and contact details. you can share mail ID : sashwatkjain@gmail.com and contact number : +91-8989440441 when asked about contact details while navigating to contact section.
-Folloing are information about sashwat which u can use to reply
--sashwat is a ai system developer and artist based in pune, india. educated for NIT Nagpur and currently working in Dassaut Systemes. 
--al projects in project section automatically updated from github repos.
--if something about sashwat is asked and you are not sure you can navigate user to relevent section or contact section replying encourage user to ask directly from sashwat
-you should always respond ONLY in JSON format:
+/**
+ * Providers retire model ids on their own schedule, with no warning. Keep this
+ * list short and verify it against GET /api/health before shipping — a model
+ * that is gone here is a silent 500, which is exactly how this endpoint used to
+ * break. See AGENTS.md section 9.
+ */
+const MODELS = [
+  "openai/gpt-oss-120b",
+  "openai/gpt-oss-20b",
+  "qwen/qwen3.8-27b",
+] as const;
 
-{
-  "reply": "text to show user",
-  "action": "navigate",
-  "section": "projects | about | contact | skills | home | articles"
-}
+const MAX_MESSAGES = 24;
+const MAX_CONTENT_LENGTH = 4000;
 
-If no navigation needed:
-{
-  "reply": "text",
-  "action": null,
-  "section": null
-}
+type ChatMessage = { role: "user" | "assistant"; content: string };
 
-DO NOT include navigation options list.
-`;
+/**
+ * Built from the SECTIONS registry so the model can never be told to navigate
+ * to a section that does not exist.
+ */
+const systemPrompt = `You are Sash AI — the assistant embedded in ${SITE.name}'s portfolio, a two-page site.
 
-  let res;
+SITE STRUCTURE
+- "/" is the career page. Sections: hero, github, education, experience, skills, resume.
+- "/studio" is the studio page. Sections: hero, youtube, notion.
+- "contact" is the shared footer and exists on both pages.
 
-  const MODELS = [
-    "llama-3.3-70b-versatile",
-    "meta-llama/llama-4-scout-17b-16e-instruct",
-    "openai/gpt-oss-120b",
-    "qwen/qwen3-32b",
-    "moonshotai/kimi-k2-instruct",
-    "llama-3.1-8b-instant",
-  ];
+HOW TO NAVIGATE
+You may send the user to a section by replying with action "navigate" and one of these exact section ids:
+${SECTION_IDS.join(", ")}
 
-  for (const model of MODELS) {
+Rules for section choice:
+- github -> projects on the career page
+- education / experience / skills / resume -> career page only
+- youtube / notion -> studio page only
+- contact -> either page, it is in the shared footer
+If the user asks for something that only exists on the other page, navigate there first rather than guessing.
+
+ABOUT ${SITE.name.toUpperCase()}
+- ${SITE.role}, based in ${SITE.contact.location}. Contact: ${SITE.contact.email}.
+- Studied B.Tech Mechanical Engineering at NIT Nagpur (institute of national importance).
+- Works at Dassault Systèmes on LLM applications, document intelligence and RAG at scale.
+- Builds AI systems professionally and films as a parallel pursuit.
+- The projects section is live from GitHub. The ongoing projects section is live from Notion and needs no deploy.
+
+STYLE
+Keep replies to one short paragraph, under 80 words. Be concrete and warm, no filler. Never invent facts about ${SITE.name} — if you do not know, say so and suggest the contact section.
+
+You must reply with ONLY a JSON object, no prose and no code fence:
+{"reply": "...", "action": "navigate" | null, "section": "<one section id>" | null}`;
+
+const isChatMessage = (value: unknown): value is ChatMessage => {
+  if (typeof value !== "object" || value === null) return false;
+
+  const candidate = value as Record<string, unknown>;
+
+  if (candidate.role !== "user" && candidate.role !== "assistant") return false;
+
+  // The widget historically sent `text`; accept either shape.
+  const content = candidate.content ?? candidate.text;
+
+  return typeof content === "string" && content.trim().length > 0;
+};
+
+const parseMessages = (body: unknown): ChatMessage[] | null => {
+  if (typeof body !== "object" || body === null) return null;
+
+  const raw = (body as Record<string, unknown>).messages;
+
+  if (!Array.isArray(raw)) return null;
+
+  const messages = raw.filter(isChatMessage).slice(-MAX_MESSAGES).map((message) => ({
+    role: message.role,
+    content: message.content.slice(0, MAX_CONTENT_LENGTH),
+  }));
+
+  // The last message must be from the user, or there is nothing to answer.
+  return messages.length > 0 && messages[messages.length - 1].role === "user" ? messages : null;
+};
+
+/**
+ * Models wrap JSON in ```json fences roughly as often as not, and sometimes
+ * prefix it with a sentence. Recover the object rather than giving up.
+ */
+const parseModelReply = (raw: string): { reply: string; action: string | null; section: string | null } => {
+  const unfenced = raw
+    .replace(/^\s*```(?:json)?/i, "")
+    .replace(/```\s*$/, "")
+    .trim();
+
+  const start = unfenced.indexOf("{");
+  const end = unfenced.lastIndexOf("}");
+
+  if (start !== -1 && end > start) {
     try {
-      console.log(`🚀 Trying model: ${model}`);
+      const parsed = JSON.parse(unfenced.slice(start, end + 1)) as Record<string, unknown>;
 
-      res = await groq.chat.completions.create({
-        model,
-        messages: [
-          { role: "system", content: systemPrompt },
-          ...messages.map((m: any) => ({
-            role: m.role,
-            content: m.text
-          }))
-        ]
-      });
+      const reply = typeof parsed.reply === "string" ? parsed.reply.trim() : "";
+      const action = parsed.action === "navigate" ? "navigate" : null;
 
-      console.log(`✅ Success with: ${model}`);
-      break;
+      // Only accept a section id that is actually registered on the site.
+      const section =
+        typeof parsed.section === "string" && SECTION_IDS.includes(parsed.section as never)
+          ? parsed.section
+          : null;
 
-    } catch (err: any) {
-      console.warn(`❌ Failed with ${model}:`, err?.message);
-
-      // Only continue if rate limit
-      if (err?.status !== 429) {
-        throw err;
-      }
+      if (reply) return { reply, action, section: action ? section : null };
+    } catch {
+      // Fall through to treating it as plain text.
     }
   }
 
-  if (!res) {
-    throw new Error("All models failed");
-  }
+  return { reply: unfenced, action: null, section: null };
+};
 
-
-    const reply = res.choices[0].message.content || "";
-    // console.log("RAW AI REPLY:", reply);
-
-  //   let action = null;
-  //   let section = null;
-
-  //   if (/project/i.test(reply)) {
-  //   action = "navigate";
-  //   section = "projects";
-  //   }
-
-  //   if (/about/i.test(reply)) {
-  //   action = "navigate";
-  //   section = "about";
-  //   }
-
-  //   if (/skill/i.test(reply)) {
-  //   action = "navigate";
-  //   section = "skills";
-  //   }
-
-  //   if (/contact/i.test(reply)) {
-  //   action = "navigate";
-  //   section = "contact";
-  //   }
-
-
-  // return NextResponse.json({
-  //   reply,
-  //   action,
-  //   section
-  // });
-
-  let parsed;
+/**
+ * Always 200 with a renderable body. The widget must never have to handle a
+ * bare 500 — that was the original bug.
+ */
+export async function POST(req: Request) {
+  let body: unknown;
 
   try {
-    parsed = JSON.parse(reply);
+    body = await req.json();
   } catch {
-    parsed = {
-      reply,
-      action: null,
-      section: null
-    };
+    return NextResponse.json(
+      { reply: "I couldn't read that message.", action: null, section: null, error: "invalid_json" },
+      { status: 200 },
+    );
   }
 
-  return NextResponse.json(parsed);
+  const messages = parseMessages(body);
+
+  if (!messages) {
+    return NextResponse.json(
+      { reply: "Send me a message and I'll pick it up from there.", action: null, section: null, error: "invalid_messages" },
+      { status: 200 },
+    );
+  }
+
+  if (!process.env.GROQ_API_KEY) {
+    console.warn("[chat] GROQ_API_KEY is not set");
+
+    return NextResponse.json(
+      { reply: "I'm not configured right now — email is faster.", action: "navigate", section: "contact", error: "missing_groq_api_key" },
+      { status: 200 },
+    );
+  }
+
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+  let content: string | null = null;
+  let usedModel: string | null = null;
+  const failures: string[] = [];
+
+  // Continue on ANY error, not just rate limits. A retired model returns 400 or
+  // 404, and bailing on those was what killed the whole chain.
+  for (const model of MODELS) {
+    try {
+      const completion = await groq.chat.completions.create({
+        model,
+        messages: [{ role: "system", content: systemPrompt }, ...messages],
+        max_tokens: 400,
+        temperature: 0.4,
+      });
+
+      const text = completion.choices[0]?.message?.content;
+
+      if (text && text.trim()) {
+        content = text;
+        usedModel = model;
+        break;
+      }
+
+      failures.push(`${model}: empty response`);
+    } catch (error) {
+      failures.push(`${model}: ${(error as Error).message}`);
+    }
+  }
+
+  if (content === null) {
+    console.error("[chat] every model failed:", failures);
+
+    return NextResponse.json(
+      {
+        reply: "I'm having trouble reaching my model right now — try again, or email me directly.",
+        action: "navigate",
+        section: "contact",
+        error: "all_models_failed",
+      },
+      { status: 200 },
+    );
+  }
+
+  return NextResponse.json({
+    ...parseModelReply(content),
+    error: null,
+    model: usedModel,
+    pages: Object.values(PAGES).map((page) => page.href),
+  });
 }
