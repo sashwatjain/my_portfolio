@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { CourseBanner } from "@/components/studio/course-banner";
 import { HeroSection } from "@/components/studio/hero-section";
 import { NotionSection } from "@/components/studio/notion-section";
 import { YoutubeSection } from "@/components/studio/youtube-section";
@@ -21,6 +22,7 @@ export default async function StudioPage() {
   return (
     <>
       <HeroSection />
+      <CourseBanner />
       <YoutubeSection videos={videos} />
       <NotionSection projects={projects} />
     </>

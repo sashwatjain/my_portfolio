@@ -239,7 +239,7 @@ endpoint is deprecated for current API versions.
 | Route | Theme | Sections |
 | --- | --- | --- |
 | `/` | `career` | `hero`, `github`, `education`, `experience`, `skills`, `resume` |
-| `/studio` | `studio` | `hero`, `youtube`, `notion` |
+| `/studio` | `studio` | `hero`, `course`, `youtube`, `notion` |
 | both | — | `contact` (the footer) |
 
 This table is a mirror of `SECTIONS` in `data/site.ts` — that file is the real

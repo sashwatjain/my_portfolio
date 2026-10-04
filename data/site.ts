@@ -57,6 +57,7 @@ export const SECTIONS = [
   },
   { id: "skills", page: "career", label: "Skills", icon: "lucide:sparkles" },
   { id: "resume", page: "career", label: "Resume", icon: "lucide:file-text" },
+  { id: "course", page: "studio", label: "Course", icon: "lucide:film" },
   { id: "youtube", page: "studio", label: "Videos", icon: "mdi:youtube" },
   { id: "notion", page: "studio", label: "Projects", icon: "lucide:rocket" },
   { id: "contact", page: "both", label: "Contact", icon: "lucide:send" },
